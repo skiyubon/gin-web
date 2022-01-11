@@ -7,13 +7,19 @@ import (
 )
 
 func main() {
-	g := gin.New()
+	app := gin.Default()
+	app.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello gin.")
+	})
+	app.GET("/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello favicon.")
+	})
 
-	g.GET("/", hello)
-	g.Run(":80")
+	app.StaticFile("favicon.ico", "./favicon.ico")
+	app.Run(":80")
 
 }
 
-func hello(c *gin.Context) {
-	c.String(http.StatusOK, "hello,gin!")
-}
+// func hello(c *gin.Context) {
+// 	c.String(http.StatusOK, "hello,gin!")
+// }
